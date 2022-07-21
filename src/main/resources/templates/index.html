@@ -10,8 +10,17 @@
 </head>
 <body>
 <form action="#" th:action="@{/}" th:object="${url}" method="post">
-    <input type="text" th:field="*{fullUrl}">
+    <label for="url">Enter url: </label>
+    <input type="text" th:field="*{fullUrl}" id="url">
     <input type="submit" value="Shorten!">
 </form>
+
+<div th:if="${created == true}">
+    Shortened!
+    <div>
+        <a th:href="${websiteUrl} + ${createdUrl}"><span th:text="${websiteUrl} + ${createdUrl}"></span></a>
+    </div>
+</div>
+
 </body>
 </html>
