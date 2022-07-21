@@ -9,6 +9,9 @@
     <title>Document</title>
 </head>
 <body>
-
+<form action="#" th:action="@{/}" th:object="${url}" method="post">
+    <input type="text" th:field="*{fullUrl}">
+    <input type="submit" value="Shorten!">
+</form>
 </body>
 </html>

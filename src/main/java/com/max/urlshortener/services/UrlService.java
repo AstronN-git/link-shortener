@@ -2,6 +2,7 @@ package com.max.urlshortener.services;
 
 import com.max.urlshortener.entities.Url;
 import com.max.urlshortener.repositories.UrlRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ public class UrlService {
         this.urlRepository = urlRepository;
     }
 
+    @Transactional
     public Url save (Url url) {
         return urlRepository.save(url);
     }

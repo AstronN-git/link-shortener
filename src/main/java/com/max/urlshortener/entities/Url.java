@@ -12,7 +12,7 @@ import lombok.ToString;
 @Table(name = "urls")
 public class Url {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String fullUrl;
 }
