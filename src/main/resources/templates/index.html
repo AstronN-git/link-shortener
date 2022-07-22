@@ -6,19 +6,29 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Url shortener</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<form action="#" th:action="@{/}" th:object="${url}" method="post">
-    <label for="url">Enter url: </label>
-    <input type="text" th:field="*{fullUrl}" id="url">
-    <input type="submit" value="Shorten!">
-</form>
 
-<div th:if="${created == true}">
-    Shortened!
-    <div>
-        <a th:href="${websiteUrl} + ${createdUrl}"><span th:text="${websiteUrl} + ${createdUrl}"></span></a>
+<div class="container">
+    <form action="#" th:action="@{/}" th:object="${url}" method="post">
+        <div class="row">
+            <label for="url">Enter url: </label>
+            <input type="text" th:field="*{fullUrl}" id="url" class="input">
+        </div>
+        <div class="row submit-container">
+            <input type="submit" value="Shorten!" class="submit">
+        </div>
+    </form>
+
+    <div th:if="${created == true}" class="row">
+        <div>
+        Shortened!
+        </div>
+        <div>
+            <a th:href="${websiteUrl} + ${createdUrl}"><span th:text="${websiteUrl} + ${createdUrl}"></span></a>
+        </div>
     </div>
 </div>
 
