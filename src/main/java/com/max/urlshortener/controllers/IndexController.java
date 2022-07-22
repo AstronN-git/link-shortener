@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Optional;
+
 @Controller
 public class IndexController {
     private final UrlService urlService;
@@ -24,13 +26,13 @@ public class IndexController {
     }
 
     @GetMapping("/")
-    public String index (Model model) {
+    public String index(Model model) {
         model.addAttribute("url", new Url());
         return "index";
     }
 
     @PostMapping("/")
-    public String createUrl (@ModelAttribute Url url, Model model) {
+    public String createUrl(@ModelAttribute Url url, Model model) {
         Url createdUrl = urlService.save(url);
         String createdUrlHash = Hash.hashLongToString(createdUrl.getId());
         model.addAttribute("websiteUrl", websiteUrl);
@@ -39,10 +41,19 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/{shortened}")
-    public RedirectView shortUrl (@PathVariable String shortened) {
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
+
+    @GetMapping("/q/{shortened}")
+    public RedirectView shortUrl(@PathVariable String shortened) {
         Long hashed = Hash.hashStringToLong(shortened);
-        Url url = urlService.getById(hashed);
-        return new RedirectView(url.getFullUrl());
+        Optional<Url> url = urlService.getById(hashed);
+        if (url.isEmpty()) {
+            return new RedirectView("/error");
+        } else {
+            return new RedirectView(url.get().getFullUrl());
+        }
     }
 }
